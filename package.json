@@ -7,7 +7,7 @@
     "start": "node src/app.js",
     "dev": "NODE_ENV=development node src/app.js",
     "migrate": "node -e \"require('./src/models').sequelize.sync({alter:true}).then(()=>console.log('db ok')).catch(e=>{console.error(e);process.exit(1)})\"",
-    "sast": "eslint . --ext .js || true",
+    "sast": "eslint . || true",
     "test": "node tests/api.test.js || true",
     "sca": "npm audit --audit-level=moderate || true"
   },
