@@ -1,9 +1,9 @@
-# Secure Node.js REST API
+# Безопасный Node.js REST API
 
 ## Описание сервиса
 Сервис использует REST API и реализован на Node.js + Express с JWT-аутентификацией, SQLite.
 
-## API Эндпоинты
+## Эндпоинты
 
 ### Аутентификация
 
@@ -142,8 +142,8 @@ curl -X POST http://localhost:3000/api/data/post \
 ## Локальный запуск
 1. Скопируйте репозиторий
 2. Создайте `.env` на основе `.env.example` и задайте `JWT_SECRET`
-3. Установите зависимости: `npm ci`
-4. Запустите: `npm start`
+3. Установите зависимости `npm ci`
+4. Запустите `npm start`
 5. По умолчанию созданы пользователи `admin:adminpass` и `user:userpass`
 
 ## Безопасность
