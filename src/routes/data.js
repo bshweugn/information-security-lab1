@@ -16,18 +16,6 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-// GET /api/data возвращает список постов
-router.get('/post', authMiddleware, async (req, res) => {
-  try {
-    const posts = await Post.findAll({ attributes: ['id', 'title', 'body', 'author'] });
-    const safe = sanitizeOutput(posts.map(p => p.get({ plain: true })));
-    res.json({ data: safe });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Ошибка сервера' });
-  }
-});
-
 // POST /api/data/post создаёт пост
 const posts = [];
 router.post('/post', authMiddleware, (req, res) => {
