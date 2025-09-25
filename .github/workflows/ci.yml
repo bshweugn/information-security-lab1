@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint (SAST)
+      run: npm run sast
+
+    - name: Run tests (smoke)
+      run: npm run test
+
+    - name: NPM audit (SCA)
+      run: |
+        npm audit --json > audit-report.json || true
+
+    - name: Upload audit report
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-audit-report
+        path: audit-report.json
+
+    - name: Show short audit summary
+      run: |
+        if [ -f audit-report.json ]; then jq '.metadata.vulnerabilities' audit-report.json || true; else echo "No report"; fi
+
+    - name: Fail on critical vulnerabilities
+      run: |
+        if [ -f audit-report.json ]; then CV=$(jq '.metadata.vulnerabilities.critical // 0' audit-report.json); if [ "$CV" -gt 0 ]; then echo "Critical vulns found"; exit 1; fi; fi
