@@ -125,8 +125,8 @@ curl -X GET http://localhost:3000/api/data \
   "post": {
     "id": 1,
     "author": "admin",
-    "title": "Мой первый пост",
-    "body": "Содержание поста..."
+    "title": "Заголовок",
+    "body": "Тело поста"
   }
 }
 ```
@@ -148,7 +148,7 @@ curl -X POST http://localhost:3000/api/data/post \
 
 ## Безопасность
 
-### Защитные механизмы
+### Методы защиты
 - **JWT аутентификация**
 - **Хеширование паролей bcrypt**
 - **Rate limiting**
